@@ -1,5 +1,5 @@
 # testing samples
-library(makeNFSampleSheet)
+library(tidynoddy)
 
 #
 # 1. define path to FASTQ files
