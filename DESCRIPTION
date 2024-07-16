@@ -1,12 +1,13 @@
 Package: makeNFSampleSheet
-Title: Make Nextflow CUTANDRUN pipeline sample sheet (One Line, Title Case)
-Version: 0.0.99
-Authors@R: 
-    person("Chao-Jen", "Wong", , "chao-jen.wong@seattlechildrens.org", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Tools faciliate making sample sheet for Nextflow CUTANDRUN pipeline
-Depends: dplyr, readxl, stringr, tidyr, readr
+Title: Make Nextflow CUTANDRUN pipeline sample sheet
+Version: 0.99.02
+Authors: Chao-Jen Wong 
+Maintainer: Chao-Jen Wong <chao-jen.wong@seattlechildrens.org>
+Description: Tools to facilitate the generation of sample sheets for the Nextflow CUT&RUN/CUT&Tag pipeline
+Depends: R (>= 4.1.0), dplyr
+Imports: readxl, stringr, tidyr, readr
 License: `use_mit_license()` license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+VignetteBuilder: knitr

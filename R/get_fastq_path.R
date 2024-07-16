@@ -7,7 +7,8 @@
 #' @param reads_pattern A character string indicating the read 1 and 2 files naming convention
 #' @param reads_pattern A character string indicating the read 1 and 2 files naming convention
 #' @param read1_pattern A character string indicating the read 1 files naming convention
-#' @return A data.frame of three columns of the sequence sample name, read 1 and read 2 FASTQ file paths
+#' @return A data.frame of three columns,  of the sequence sample name, read 1 and read 2 FASTQ file paths
+#' @details The first column \code{fq_sample_name} is set by trimming the paramters \code{pattern} and \code{reads_pattern} from the FASTQ files. The second and third columns are the location of the forward (read1) and reverse (read2) FASTQ files.
 #' @export
 #' @examples
 #' # Novogene pattern

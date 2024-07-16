@@ -21,21 +21,29 @@ get_fastq_path(
 \item{read1_pattern}{A character string indicating the read 1 files naming convention}
 }
 \value{
-A data.frame of three columns of the sequence sample name, read 1 and read 2 FASTQ file paths
+A data.frame of three columns,  of the sequence sample name, read 1 and read 2 FASTQ file paths
 }
 \description{
 construct a data.frame with three columns containing sequence name, read 1 and read 2 fastq files
 }
+\details{
+The first column \code{fq_sample_name} is set by trimming the paramters \code{pattern} and \code{reads_pattern} from the FASTQ files. The second and third columns are the location of the forward (read1) and reverse (read2) FASTQ files.
+}
 \examples{
-Novogene pattern
-path <- '/archive/sarthy_j/FASTQs/GBe6_M07e_WSU_frz_CnT_06213024/usftp21.novogene.com/01.RawData'
-df <- get_fastq_path(path, pattern = '\\\\.fq.gz$',
-                     reads_pattern = '_1|_2',
-                     read1_pattern = '_1')
+# Novogene pattern
+path <- "/archive/sarthy_j/FASTQs/GBe6_M07e_WSU_frz_CnT_06213024/usftp21.novogene.com/01.RawData"
+df <- get_fastq_path(path,
+  pattern = "\\\\.fq.gz$",
+  reads_pattern = "_1|_2",
+  read1_pattern = "_1"
+)
 
-Regular pattern
-path <-  '/archive/sarthy_j/FASTQs/240708_VH01189_307_AAFYY2YM5/Unaligned/Project_jsarthy'
-df <- get_fastq_path(path, pattern ='\\\\.fastq.gz$',
-                    reads_pattern = '_R1|_R2',
-                    read1_pattern = '_R1')
+# Regular pattern
+path <- "/archive/sarthy_j/FASTQs/240708_VH01189_307_AAFYY2YM5/Unaligned/Project_jsarthy"
+df <- get_fastq_path(path,
+  pattern = "\\\\.fastq.gz$",
+  reads_pattern = "_R1|_R2",
+  read1_pattern = "_R1"
+)
+
 }
