@@ -32,10 +32,9 @@ get_fastq_path <- function(path, pattern = "\\.fastq.gz$",
                            read1_pattern = "_R1") {
   # this generate a data.frame with three colums corresponding to
   # the fastq names, read1 and read2
-  library(dplyr)
-  library(readxl)
-  library(stringr)
-  library(tidyr)
+  require(readxl)
+  require(stringr)
+  require(tidyr)
 
   fq_df <- list.files(path,
     pattern = pattern,

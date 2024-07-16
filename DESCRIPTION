@@ -1,4 +1,4 @@
-Package: makeNFSampleSheet
+Package: tidynoddy
 Title: Make Nextflow CUTANDRUN pipeline sample sheet
 Version: 0.99.02
 Authors: Chao-Jen Wong 

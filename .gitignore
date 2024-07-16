@@ -1,4 +1,5 @@
 .Rproj.user
 .DS_Store
 .Rbuildignore
-makeNFSampleSheet.Rproj
+todinoddy.Rproj
+inst/extdata/JFSe8_Free_CnR_Template.xlsx
