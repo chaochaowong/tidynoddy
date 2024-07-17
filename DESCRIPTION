@@ -1,11 +1,11 @@
 Package: tidynoddy
-Title: Make Nextflow CUTANDRUN pipeline sample sheet
-Version: 0.99.02
+Title: Make the Nextflow CUT&RUN/CUT&Tag pipeline sample sheet
+Version: 0.99.03
 Authors: Chao-Jen Wong 
 Maintainer: Chao-Jen Wong <chao-jen.wong@seattlechildrens.org>
 Description: Tools to facilitate the generation of sample sheets for the Nextflow CUT&RUN/CUT&Tag pipeline
-Depends: R (>= 4.1.0), dplyr
-Imports: readxl, stringr, tidyr, readr
+Depends: R (>= 4.1.0), dplyr, stringr
+Imports: readxl, tidyr, readr
 License: `use_mit_license()` license
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

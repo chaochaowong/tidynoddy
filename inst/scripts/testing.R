@@ -1,5 +1,6 @@
 # testing samples
 library(tidynoddy)
+library(dplyr)
 
 #
 # 1. define path to FASTQ files
@@ -35,9 +36,10 @@ df <- get_fastq_path(path, pattern='\\.fastq.gz$',
 # 3. testing tidy_sample_sheet()
 #
 
-master_sheet <- file.path('/Users/cwo11/Projects/makeNFSampleSheet/inst/extdata',
+master_sheet <- file.path('/Users/cwo11/Projects/tidynoddy/inst/extdata',
                           'JFSe8_Free_CnR_Template.xlsx')
 sheet = 1
+unique_id = 'unique_id'
 extra_columns <- c('Ab', 'Seq_name')
 cell_line = 'Cell line'
 antibody = 'Condition'
@@ -45,15 +47,15 @@ treatment = NULL
 sample = NULL
 spike_in = FALSE
 single_end = FALSE
+sample_id = NULL
 
 tidy_sample_sheet(master_sheet,
                   sheet = 1,
-                  unique_id = 'unique_id',
+                  unique_id = 'samp_name',
                   single_end = FALSE,
                   cell_line = 'Cell line',
                   antibody = 'Condition',
                   treatment = NULL,
-                  sample = NULL,
-                  extra_columns = NULL,
-                  spike_in = FALSE)
+                  sample = NULL)
+
 

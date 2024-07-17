@@ -1,6 +1,7 @@
 #' get_fastq_path
 #'
-#' construct a data.frame with three columns containing sequence name, read 1 and read 2 fastq files
+#' Construct a data.frame with three columns:sequence name, read 1 and
+#' read 2 fastq file paths, given a fastq path for paired-end reads
 #'
 #' @param path A path to directory of FASTQ
 #' @param pattern A character string indicating the FASTQ extension pattern
@@ -11,29 +12,25 @@
 #' @details The first column \code{fq_sample_name} is set by trimming the paramters \code{pattern} and \code{reads_pattern} from the FASTQ files. The second and third columns are the location of the forward (read1) and reverse (read2) FASTQ files.
 #' @export
 #' @examples
+#' \dontrun{
 #' # Novogene pattern
 #' path <- "/archive/sarthy_j/FASTQs/GBe6_M07e_WSU_frz_CnT_06213024/usftp21.novogene.com/01.RawData"
-#' df <- get_fastq_path(path,
-#'   pattern = "\\.fq.gz$",
-#'   reads_pattern = "_1|_2",
-#'   read1_pattern = "_1"
-#' )
+#' df <- get_fastq_path(path, pattern = "\\.fq.gz$",
+#'                      reads_pattern = "_1|_2",
+#'                      read1_pattern = "_1")
 #'
 #' # Regular pattern
 #' path <- "/archive/sarthy_j/FASTQs/240708_VH01189_307_AAFYY2YM5/Unaligned/Project_jsarthy"
-#' df <- get_fastq_path(path,
-#'   pattern = "\\.fastq.gz$",
-#'   reads_pattern = "_R1|_R2",
-#'   read1_pattern = "_R1"
-#' )
+#' df <- get_fastq_path(path, pattern = "\\.fastq.gz$",
+#'                      reads_pattern = "_R1|_R2",
+#'                      read1_pattern = "_R1")
+#' }
 #'
 get_fastq_path <- function(path, pattern = "\\.fastq.gz$",
                            reads_pattern = "_R1|_R2",
                            read1_pattern = "_R1") {
   # this generate a data.frame with three colums corresponding to
   # the fastq names, read1 and read2
-  require(readxl)
-  require(stringr)
   require(tidyr)
 
   fq_df <- list.files(path,
