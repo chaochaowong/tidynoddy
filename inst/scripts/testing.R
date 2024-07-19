@@ -1,4 +1,7 @@
 # testing samples
+# install tidynoddy
+# library(devtools)
+# install_github('chaochaowong/tidynoddy')
 library(tidynoddy)
 library(dplyr)
 
@@ -7,13 +10,13 @@ library(dplyr)
 #
 
 # if on Cybertron
-path <- '/archive/sarthy_j/FASTQs/GBe6_M07e_WSU_frz_CnT_06213024/usftp21.novogene.com/01.RawData'
+path <- '/archive/sarthy_j/FASTQs/GBe6_M07e_WSU-AML_fresh-v-frozen_novogene/usftp21.novogene.com/01.RawData'
 
 # if on local MAC
 dir_header <- '///Volumes'
 path <- file.path(dir_header, 'Archive',
                   'sarthy_j/FASTQs',
-                  'GBe6_M07e_WSU_frz_CnT_06213024',
+                  'GBe6_M07e_WSU-AML_fresh-v-frozen_novogene',
                   'usftp21.novogene.com/01.RawData')
 
 # sanity check
@@ -30,6 +33,8 @@ df_GBe6 <- get_fastq_path(path, pattern='\\.fq.gz$',
 # Gabe's sample_id is self-explanatory such that we don't need a sample
 # sheet to make the nextflow sample sheet
 df_GBe6 <- df_GBe6 %>%
+  dplyr::mutate(read1 = str_replace(read1, '///Volumes/Archive', '/active'),
+                read2 = str_replace(read2, '///Volumes/Archive', '/active')) %>%
   dplyr::mutate(sample_id =
                   str_replace(fq_sample_name, '_CKDL.*', ''),
                 cell_line =

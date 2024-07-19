@@ -29,10 +29,13 @@
 get_fastq_path <- function(path, pattern = "\\.fastq.gz$",
                            reads_pattern = "_R1|_R2",
                            read1_pattern = "_R1") {
-  # this generate a data.frame with three colums corresponding to
-  # the fastq names, read1 and read2
+  # check if path exists
+  if (!file.exists(path))
+    stop(path, ' does not exist.')
+
   require(tidyr)
 
+  # list files
   fq_df <- list.files(path,
     pattern = pattern,
     recursive = TRUE,
@@ -43,7 +46,7 @@ get_fastq_path <- function(path, pattern = "\\.fastq.gz$",
 
   # if number of row is zero
   if (nrow(fq_df) < 1) {
-    stop(path, "does not have fastq or fastq.gz files.")
+    stop(path, " does not have fastq (fq) or fastq.gz (fq.gz) files.")
   }
 
   trim_pattern <- paste0("(", reads_pattern, ").*")

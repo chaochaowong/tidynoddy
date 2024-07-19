@@ -1,6 +1,7 @@
 .Rproj.user
 .DS_Store
 .Rbuildignore
+.Rhistory
 todinoddy.Rproj
 inst/.DS_Store
 inst/extdata/JFSe8_Free_CnR_Template.xlsx
