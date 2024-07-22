@@ -1,32 +1,76 @@
 #' tiudy_sample_sheet
 #'
 #' Process a sample sheet, tidying and converting it
-#' to the Nexflow sample sheet format for CUT&RUN/CUT&Tag-specific
+#' to a sample sheet format specifically for CUT&RUN/CUT&Tag NextFlow
 #' pipeline.
 #'
-#' @param master_sheet A path to the master sample sheet
+#' @param master_sheet A path to the master sample sheet file; Must be in either xlsx or csv format.
 #' @param sheet Sheet to read
-#' @param unique_id Either \code{NULL} or a character string giving a column name of the \emph{unique_id} information
-#' @param sample_id Either \code{NULL} or a character string giving a column name of the \emph{sample_id} information.
-#' @param antibody A character string giving a column name in the master sheet that contains the \emph{antibody} information.
-#' @param cell_line A character string giving a column name in the master sheet that contains of the \emph{sample_id} information.
+#' @param unique_id Either \code{NULL} or a character string specifying
+#'        the column name in the input sample sheet
+#'        that contains the \emph{unique_id} information. Note that \code{unique_id} and \code{sample_id} cannot be both NULL.
+#' @param sample_id Either \code{NULL} or a character string specifying
+#'        the column name in the input sample sheet that contains
+#'        the \emph{sample_id} information. If NULL,
+#'        default to the concatenation of \code{unique_id}, \code{cell_line},
+#'        and \code{antibody}. Note that \code{unique_id} and \code{sample_id} cannot be both NULL.
+#' @param antibody A character string specifying the column name
+#'        in the input sample sheet that contains the \emph{antibody} information.
+#' @param cell_line A character string specifying column name in the
+#'        input sample sheet that contains of the \emph{cell_line} information.
 #' @param single_end FALSE if the FASTQ is paired-end or TRUE is the FASTQ is single-ended.
-#' @param sample A character string giving a column name in the master sheet that contains of the \emph{sample} (Nextflow-specific) information.
-#' @param treatment A character string giving a column name in the master sheet that contains of the \emph{target_or_control} (Nextflow-specific) information.
-#' @return A data frame formatted to Nextflow-specific sample sheet with mandated columns including \code{sample_id}, \code{sample}, \code{singe_end}, \code{target_or_control}, \code{read1}, \code{read2} and addition columns from the master sample sheet.
+#' @param sample A character string specifying the column name in the
+#'        input sample sheet that contains of the \emph{sample}
+#'        information. If NULL, default to the value in the
+#'        \code{cell_line} column.
+#' @param treatment A character string specifying the column name
+#'        in the input sample sheet that contains of the
+#'        \emph{treatment} information.
+#' @details The cutandrun NextFlow core pipeline requires a sample sheet
+#'          with six mandated columns: sample_id, sample, single_end,
+#'          target_or_control, read1, and read2. Note that \code{target_or_control}
+#'          is defined by \code{antiboyd}: if IgG, then "control", else "target".
+#'          The \code{read1} and \code{read2} columns can be prepared
+#'          by \code{get-fastq_path()} and be joined with the resulted
+#'          \code{data.frame} of this function. In addition, the \code{sample} column
+#'          groups the target and control samples; it is usually
+#'          the same as \code{cell_line}. The extra \code{cell_line}
+#'          and \code{antibody} columns are for CUNT&RUN-seq downstream
+#'          analysis. \code{unique_id} and \code{sample_id} cannot be
+#'          both NULL. If is is NULL, default to concatenation of
+#'          \code{unique_id}, \code{cell_line}, and \code{antibody}.
+#' @return A data frame formatted specifically to cutandrun NextFlow
+#'         core pipeline sample sheet
 #' @examples
 #' \dontrun{
 #' master_sheet <- file.path('/Users/cwo11/Projects/tidynoddy/inst/extdata',
 #'                           'JFSe8_Free_CnR_Template.xlsx')
-#' tidy_sample_sheet(master_sheet,
-#'                   sheet = 1,
-#'                   unique_id = 'samp_name',
-#'                   single_end = FALSE,
-#'                   cell_line = 'Cell line',
-#'                   antibody = 'Condition',
-#'                   treatment = NULL,
-#'                   sample = NULL)
+#' df <- tidy_sample_sheet(master_sheet,
+#'                         sheet = 1,
+#'                         unique_id = 'samp_name',
+#'                         single_end = FALSE,
+#'                         cell_line = 'Cell line',
+#'                         antibody = 'Condition',
+#'                         treatment = NULL,
+#'                         sample = NULL)
+#' # do some sanity check:
+#' df
+#'
+#' # the following is to make a complete Nextflow-specific sample sheet for cutandrun pipeline:
+#' # 1. use get_fastq_path() and define sample_id or unique id
+#' path <- "/archive/sarthy_j/FASTQs/240708_VH01189_307_AAFYY2YM5/Unaligned/Project_jsarthy"
+#' fq_df <- get_fastq_path(path, pattern = "\\.fastq.gz$",
+#'                         reads_pattern = "_R1|_R2",
+#'                         read1_pattern = "_R1") \%>\%
+#'   dplyr::mutate(unique_id = str_split(fq_sample_name, '-',
+#'                                       simplify=TURE)[, 4])
+#' # 2. inner join the results of get_fastq_path() and tidy_sample_sheet() by either 'sample_id' or 'unique_id'
+#'
+#' nf_df <- df %>%
+#'   inner_join(fq_df, by = 'unique_id')
+#' nf
 #' }
+#'
 #' @export
 tidy_sample_sheet <- function(master_sheet,
                               sheet = 1,

@@ -1,6 +1,6 @@
 Package: tidynoddy
 Title: Make the Nextflow CUT&RUN/CUT&Tag pipeline sample sheet
-Version: 0.99.03
+Version: 0.99.04
 Author: Chao-Jen Wong 
 Maintainer: Chao-Jen Wong <chao-jen.wong@seattlechildrens.org>
 Description: Tools to facilitate the generation of sample sheets for the Nextflow CUT&RUN/CUT&Tag pipeline

@@ -4,4 +4,5 @@
 .Rhistory
 todinoddy.Rproj
 inst/.DS_Store
+template-namespace
 inst/extdata/JFSe8_Free_CnR_Template.xlsx
