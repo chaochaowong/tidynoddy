@@ -1,4 +1,4 @@
-#' tiudy_sample_sheet
+#' tidy_sample_sheet
 #'
 #' Process a sample sheet, tidying and converting it
 #' to a sample sheet format specifically for CUT&RUN/CUT&Tag NextFlow

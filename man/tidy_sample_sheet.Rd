@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidy_sample_sheet.R
 \name{tidy_sample_sheet}
 \alias{tidy_sample_sheet}
-\title{tiudy_sample_sheet}
+\title{tidy_sample_sheet}
 \usage{
 tidy_sample_sheet(
   master_sheet,
