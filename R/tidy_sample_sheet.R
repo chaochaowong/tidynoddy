@@ -161,6 +161,7 @@ tidy_sample_sheet <- function(master_sheet,
   # column names 'cell_line' and 'antibody'
 
   # tidy up "cell_line" and "antibody"
+  # trim and replace space by '-'
   df <- df %>%
     dplyr::rename(antibody  = one_of(antibody),
                   cell_line = one_of(cell_line)) %>%
@@ -169,7 +170,7 @@ tidy_sample_sheet <- function(master_sheet,
     dplyr::mutate(cell_line = str_replace_all(cell_line, ' ', '-'),
                   antibody  = str_replace_all(antibody, ' ', '-'))
 
-  # tidy up "treatment"
+  # tidy up "treatment": trim and replace space by '-'
   if (!is.null(treatment)) {
     df <- df %>%
       dplyr::rename(treatment = one_of(treatment)) %>%
@@ -178,15 +179,19 @@ tidy_sample_sheet <- function(master_sheet,
   }
 
   # tidy up "sample_id"
-  # if not exist: patch cell_line, antibody, and treatment (if not null)
+  # if not exist: patch cell_line, treatment (if not null), antibody
   if (is.null(sample_id)) {
     df <- df %>%
       dplyr::mutate(sample_id =
-                      paste0(unique_id, '_', cell_line,
-                             '_', antibody))
+                      paste0(unique_id, '_', cell_line))
     if (!is.null(treatment)) {
       df <- df %>%
-        dplry::mutate(sample_id = paste0(sample_id, '-', treatment))
+        dplyr::mutate(sample_id = paste0(sample_id, '_', treatment))
+    }
+
+    if (!is.null(antibody)) {
+      df <- df %>%
+        dplyr::mutate(sample_id = paste0(sample_id, '_', antibody))
     }
   }
 
