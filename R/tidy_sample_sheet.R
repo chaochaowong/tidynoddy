@@ -107,12 +107,12 @@ tidy_sample_sheet <- function(master_sheet,
   require(readxl)
   require(readr)
 
-  # validation
+  # extentsion validation
+  ext <- tools::file_ext(master_sheet)
   if (!stringr::str_detect(ext, 'xlsx|xls|csv'))
     stop('The format of the sample sheet must by xlsx, xls, or csv.')
 
 
-  ext <- tools::file_ext(master_sheet)
   if (ext == 'xlsx')
     df <- readxl::read_xlsx(master_sheet, sheet=sheet)
   if (ext == 'xls')
