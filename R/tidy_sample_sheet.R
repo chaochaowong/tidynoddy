@@ -115,6 +115,9 @@ tidy_sample_sheet <- function(master_sheet,
   if (ext == 'csv')
     df <- readr::read_csv(master_sheet)
 
+  if (!stringr::str_detect(ext, 'xlsx|xls|csv'))
+    stop('The format of the sample sheet must by xlsx, xls, or csv.')
+
   # sanity check: if not NULL, check if it exist
   # make .check_input_columns
   column_names <- names(df)
