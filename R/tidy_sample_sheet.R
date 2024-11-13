@@ -110,6 +110,8 @@ tidy_sample_sheet <- function(master_sheet,
   ext <- tools::file_ext(master_sheet)
   if (ext == 'xlsx')
     df <- readxl::read_xlsx(master_sheet, sheet=sheet)
+  if (ext == 'xls')
+    df <- readxl::read_xls(master_sheet, sheet=sheet)
   if (ext == 'csv')
     df <- readr::read_csv(master_sheet)
 
