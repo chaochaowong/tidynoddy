@@ -107,7 +107,7 @@ tidy_sample_sheet <- function(master_sheet,
   require(readxl)
   require(readr)
 
-  # extentsion validation
+  # 1. extension validation
   ext <- tools::file_ext(master_sheet)
   if (!stringr::str_detect(ext, 'xlsx|xls|csv'))
     stop('The format of the sample sheet must by xlsx, xls, or csv.')
@@ -120,7 +120,7 @@ tidy_sample_sheet <- function(master_sheet,
   if (ext == 'csv')
     df <- readr::read_csv(master_sheet)
 
-  # sanity check: if not NULL, check if it exist
+  # 2. sanity check: if not NULL, check if it exist
   # make .check_input_columns
   column_names <- names(df)
   input_columns <- c(unique_id = unique_id, sample_id = sample_id,
