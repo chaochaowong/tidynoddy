@@ -9,9 +9,11 @@ sanitize_nf_sheet <- function(x, remove_na_cols = TRUE,
   
   # 2. delete columns without entries (NA)
   if (remove_na_cols) {
-    
+    x <- x %>%
+      dplyr::select(where(~ !all(is.na(.))))
   }
 
+  return(x)
 }
 
 x <- data.frame(sample_id = 'apple;11(orange)-kiwi_grapes',
