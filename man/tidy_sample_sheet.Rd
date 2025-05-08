@@ -19,7 +19,7 @@ tidy_sample_sheet(
 \arguments{
 \item{master_sheet}{A path to the master sample sheet file; Must be in either xlsx or csv format.}
 
-\item{sheet}{Sheet (number or sting) to read}
+\item{sheet}{Sheet to read}
 
 \item{unique_id}{Either \code{NULL} or a character string specifying
 the column name in the input sample sheet
@@ -53,13 +53,15 @@ A data frame formatted specifically to cutandrun NextFlow
 core pipeline sample sheet
 }
 \description{
-Process the provied sample sheet by tidying and formatting it to allign the required columns of the `nf-core/cutandrun` pipeline.
+Process a sample sheet, tidying and converting it
+to a sample sheet format specifically for CUT&RUN/CUT&Tag NextFlow
+pipeline.
 }
 \details{
 The cutandrun NextFlow core pipeline requires a sample sheet
 with six mandated columns: sample_id, sample, single_end,
 target_or_control, read1, and read2. Note that \code{target_or_control}
-is defined by \code{antibody}: if IgG, then "control", else "target".
+is defined by \code{antiboyd}: if IgG, then "control", else "target".
 The \code{read1} and \code{read2} columns can be prepared
 by \code{get-fastq_path()} and be joined with the resulted
 \code{data.frame} of this function. In addition, the \code{sample} column
