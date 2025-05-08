@@ -59,6 +59,7 @@ validate_nf_sheet <- function(nf_sample_sheet,
 
   tb <- read_csv(nf_sample_sheet)
   assert <- (mandatory_columns %in% names(nf_sample_sheet))
+  
   if (!assert) {
     stop(paste("For a valid sample sheet for NextFlow cutandrun pipeline
                must have columns called:",
@@ -88,6 +89,4 @@ validate_nf_sheet <- function(nf_sample_sheet,
   # all pass
   message('cutandrun nextflow sample sheet validation: passed!')
   return(NULL)
-
-
 }
