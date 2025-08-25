@@ -7,7 +7,7 @@
 #'
 #' @param nf_sample_sheet A path to the nextflow cutandrun pipeline sample sheet.
 #' @param nf_pipeline character string, 'scri' or 'nf-core', to specify which pipeline you are running.
-#' @example
+#' @examples
 #' 
 #' \dontrun{
 #' validate('nf-core-sample-sheet.csv', 'nf-core')

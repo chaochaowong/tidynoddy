@@ -6,43 +6,40 @@
 \usage{
 get_fastq_path(
   path,
-  pattern = "\\\\.fastq.gz$",
-  reads_pattern = "_R1|_R2",
-  read1_pattern = "_R1"
+  ext_pattern = "\\\\.fastq\\\\.gz$",
+  reads_pattern = "_R1|_R2"
 )
 }
 \arguments{
 \item{path}{A path to directory of FASTQ}
 
-\item{pattern}{A character string indicating the FASTQ extension pattern}
+\item{ext_pattern}{A character string indicating the FASTQ extension pattern, e.g. '\\.fq\\.gz$' or '\\.fastq\\.gz'}
 
-\item{reads_pattern}{A character string indicating the read 1 and 2 files naming convention}
-
-\item{read1_pattern}{A character string indicating the read 1 files naming convention}
+\item{reads_pattern}{A character string indicating the forward and reverse read files naming convention, e.g. '_R1|_R2' or '_1|_2'}
 }
 \value{
-A data.frame of three columns,  of the sequence sample name, read 1 and read 2 FASTQ file paths
+A data.frame of three columns, \emph{sample_id}, \emph{fastq_1}, and \emph{fastq_2}
 }
 \description{
 Construct a data.frame with three columns:sequence name, read 1 and
 read 2 fastq file paths, given a fastq path for paired-end reads
 }
 \details{
-The first column \code{fq_sample_name} is set by trimming the paramters \code{pattern} and \code{reads_pattern} from the FASTQ files. The second and third columns are the location of the forward (read1) and reverse (read2) FASTQ files.
+The first column \code{sample_id} is set by trimming the paramters \code{ext_pattern} and \code{reads_pattern} from the FASTQ files. The second and third columns are the location of the forward (fastq_1) and reverse (fastq_2) FASTQ files.
 }
 \examples{
 \dontrun{
 # Novogene pattern
 path <- "/archive/sarthy_j/FASTQs/GBe6_M07e_WSU_frz_CnT_06213024/usftp21.novogene.com/01.RawData"
-df <- get_fastq_path(path, pattern = "\\\\.fq.gz$",
-                     reads_pattern = "_1|_2",
-                     read1_pattern = "_1")
+df <- get_fastq_path(path, 
+                     ext_pattern = "\\\\.fq\\\\.gz$",
+                     reads_pattern = "_1|_2")
 
 # Regular pattern
 path <- "/archive/sarthy_j/FASTQs/240708_VH01189_307_AAFYY2YM5/Unaligned/Project_jsarthy"
-df <- get_fastq_path(path, pattern = "\\\\.fastq.gz$",
-                     reads_pattern = "_R1|_R2",
-                     read1_pattern = "_R1")
+df <- get_fastq_path(path, 
+                     ext_pattern = "\\\\.fastq\\\\.gz$",
+                     reads_pattern = "_R1|_R2")
 }
 
 }
