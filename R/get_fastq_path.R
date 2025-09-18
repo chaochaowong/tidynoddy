@@ -5,7 +5,7 @@
 #'
 #' @param path A path to directory of FASTQ
 #' @param ext_pattern A character string indicating the FASTQ extension pattern, e.g. '\\.fq\\.gz$' or '\\.fastq\\.gz'
-#' @param reads_pattern A character string indicating the forward and reverse read files naming convention, e.g. '_R1|_R2' or '_1|_2'
+#' @param reads_pattern A character string indicating the forward and reverse read files naming convention, e.g. '_R1_001|_R2_001', '_R1|_R2', or '_1|_2'. It is also used to trim the FASTQ file name to get the sample name.
 #' @return A data.frame of three columns, \emph{sample_id}, \emph{fastq_1}, and \emph{fastq_2} 
 #' @details The first column \code{sample_id} is set by trimming the paramters \code{ext_pattern} and \code{reads_pattern} from the FASTQ files. The second and third columns are the location of the forward (fastq_1) and reverse (fastq_2) FASTQ files.
 #' @export
@@ -36,7 +36,7 @@ get_fastq_path <- function(path,
 
   # list files
   fq_df <- list.files(path,
-    pattern = pattern,
+    pattern = ext_pattern,
     recursive = TRUE,
     full.names = TRUE
   ) %>%
@@ -73,7 +73,7 @@ get_fastq_path <- function(path,
   fq_df %>%
     dplyr::mutate(
       read_token = str_match(base_name, read_token_re)[, 2],
-      reads     = str_replace(read_token, "^_(?:R)?", "fastq_"),    # "R1"/"R2"
+      reads      = str_replace(read_token, "^_(?:R)?", "fastq_"),    # "R1"/"R2"
       sample_id  = str_replace(base_name, strip_re, "")        # e.g., "JR_1"
     ) %>%
     dplyr::select(fq_file, sample_id, reads) %>%
